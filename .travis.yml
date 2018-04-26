@@ -4,3 +4,6 @@ dist: trusty
 
 php:
   - 7.2
+
+script:
+  - vendor/bin/phpunit tests/ --color
