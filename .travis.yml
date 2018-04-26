@@ -6,4 +6,5 @@ php:
   - 7.2
 
 script:
+  - composer inst
   - vendor/bin/phpunit tests/ --color
