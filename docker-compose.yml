@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+#  php:
+#    build: .
+#    container_name: 2fa-php
+#    networks:
+#      backend:
+#        aliases:
+#          - php-host
+#    volumes:
+#      - .:/var/www/html
+#      - ./php.ini:/usr/local/etc/php/php.ini
+#    environment:
+#      PHP_IDE_CONFIG: "serverName=docker"
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: tfa-app
+    ports:
+     - "83:80"
+    volumes:
+      - .:/var/www/html
+#  mysql:
+#    image: mysql:5.7
+#    container_name: 2fa-mysql
+#    environment:
+#      MYSQL_DATABASE: auto
+#      MYSQL_USER: root
+#      MYSQL_ROOT_PASSWORD: root
+#    volumes:
+#      - ~/.docker-mysql-databases/auto:/var/lib/mysql
+#    ports:
+#      - "3307:3306"
+#    networks:
+#      backend:
+#        aliases:
+#          - mysql-host
+#  phpmyadmin:
+#    image: phpmyadmin/phpmyadmin
+#    container_name: 2fa-phpmyadmin
+#    environment:
+#      PMA_HOST: mysql-host
+#    ports:
+#      - "3309:80"
+#    networks:
+#      - backend
+#networks:
+#  backend:
