@@ -2,6 +2,8 @@
 
 namespace TFAuth\Providers\Qr;
 
+use GuzzleHttp\Client;
+
 /**
  * Class BaseHTTPQRCodeProvider
  *
@@ -10,31 +12,25 @@ namespace TFAuth\Providers\Qr;
 abstract class BaseHTTPQRCodeProvider implements IQRCodeProvider
 {
 
+    /**
+     * @var bool
+     */
     protected $verifyssl;
 
     /**
      * @param string $url
-     * @return mixed
+     * @return string
      */
-    protected function getContent(string $url)
+    public function getContent(string $url): string
     {
-        $curlhandle = curl_init();
-
-        curl_setopt_array(
-            $curlhandle,
+        $client = new Client();
+        $response = $client->get(
+            $url,
             [
-             CURLOPT_URL               => $url,
-             CURLOPT_RETURNTRANSFER    => true,
-             CURLOPT_CONNECTTIMEOUT    => 10,
-             CURLOPT_DNS_CACHE_TIMEOUT => 10,
-             CURLOPT_TIMEOUT           => 10,
-             CURLOPT_SSL_VERIFYPEER    => $this->verifyssl,
-             CURLOPT_USERAGENT         => 'TwoFactorAuth',
+             'verify' => $this->verifyssl,
             ]
-        );
-        $data = curl_exec($curlhandle);
+        )->getBody();
 
-        curl_close($curlhandle);
-        return $data;
+        return $response->getContents();
     }
 }

@@ -2,6 +2,10 @@
 
 namespace Tests;
 
+use TFAuth\Providers\Qr\EndroidQRProvider;
+use TFAuth\Providers\Qr\GoogleQRCodeProvider;
+use TFAuth\Providers\Qr\QRicketProvider;
+use TFAuth\Providers\Qr\QRServerProvider;
 use TFAuth\Providers\Time\HttpTimeProvider;
 use TFAuth\TwoFactorAuth;
 use TFAuth\Providers\Qr\IQRCodeProvider;
@@ -401,6 +405,36 @@ class TwoFactorAuthTest extends \PHPUnit\Framework\TestCase
                    ];
         }
         return null;
+    }
+
+    /**
+     * @param string $class
+     *
+     * @dataProvider dataQRProvider
+     */
+    public function testQR($class)
+    {
+        /**
+         * @var IQRCodeProvider $new
+         */
+        $new = new $class();
+
+        $qr = $new->getQRCodeImage('test', 200);
+
+        $qrcode = new \QrReader($qr, \QrReader::SOURCE_TYPE_BLOB);
+        $text = $qrcode;
+
+        $this->assertEquals('test', $text->text());
+    }
+
+    public function dataQRProvider()
+    {
+        return [
+                [EndroidQRProvider::class],
+                [GoogleQRCodeProvider::class],
+                [QRicketProvider::class],
+                [QRServerProvider::class],
+               ];
     }
 }
 

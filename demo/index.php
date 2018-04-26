@@ -9,7 +9,7 @@ echo '<li>First create a secret and associate it with a user';
 $secret = $tfa->createSecret(160);  // Though the default is an 80 bits secret (for backwards compatibility reasons) we recommend creating 160+ bits secrets (see RFC 4226 - Algorithm Requirements)
 
 
-$imageUrl = $tfa->getQRCodeImageAsDataUri('My label', $secret);
+$imageUrl = $tfa->getQRCodeImageAsDataUri('My label', $secret, 200);
 
 echo "<li>Next create a QR code and let the user scan it:<br>
 <img src='".$imageUrl."'>
