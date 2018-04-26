@@ -9,6 +9,6 @@ namespace TFAuth\Providers\Qr;
  */
 interface IQRCodeProvider
 {
-    public function getQRCodeImage(string $qrtext, int $size);
-    public function getMimeType();
+    public function getQRCodeImage(string $qrtext, int $size): string;
+    public function getMimeType(): string;
 }

@@ -76,9 +76,9 @@ class QRicketProvider extends BaseHTTPQRCodeProvider
      * @param string $qrtext
      * @param int    $size
      *
-     * @return mixed
+     * @return string
      */
-    public function getQRCodeImage(string $qrtext, int $size)
+    public function getQRCodeImage(string $qrtext, int $size): string
     {
         return $this->getContent($this->getUrl($qrtext, $size));
     }

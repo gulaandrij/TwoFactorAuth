@@ -9,8 +9,14 @@ use TFAuth\Providers\Rng\IRNGProvider;
 use TFAuth\Providers\Time\ITimeProvider;
 use TFAuth\Providers\Time\LocalMachineTimeProvider;
 
-// Based on / inspired by: https://github.com/PHPGangsta/GoogleAuthenticator
-// Algorithms, digits, period etc. explained: https://github.com/google/google-authenticator/wiki/Key-Uri-Format
+/**
+ * Class TwoFactorAuth
+ *
+ * Based on / inspired by: https://github.com/PHPGangsta/GoogleAuthenticator
+ * Algorithms, digits, period etc. explained: https://github.com/google/google-authenticator/wiki/Key-Uri-Format
+ *
+ * @package TFAuth
+ */
 class TwoFactorAuth
 {
 
@@ -137,7 +143,7 @@ class TwoFactorAuth
 
         $rnd = $rngprovider->getRandomBytes($bytes);
 
-        $array = \array_slice(str_split($rnd), 0, $bytes);
+        $array = \array_slice(\str_split($rnd), 0, $bytes);
 
         $data = array_map(
             function ($item) {
@@ -159,7 +165,7 @@ class TwoFactorAuth
      *
      * @throws TwoFactorAuthException
      */
-    public function getCode(string $secret, ?int $time = null): string
+    public function getCode(string $secret, int $time = null): string
     {
         $secretKey = $this->base32Decode($secret);
 
@@ -184,7 +190,7 @@ class TwoFactorAuth
      *
      * @throws TwoFactorAuthException
      */
-    public function verifyCode(string $secret, string $code, ?int $discrepancy = 1, ?int $time = null): bool
+    public function verifyCode(string $secret, string $code, int $discrepancy = 0, int $time = null): bool
     {
         $result = 0;
         $timetamp = $this->getTime($time);
@@ -215,7 +221,7 @@ class TwoFactorAuth
      *
      * @param string $label
      * @param string $secret
-     * @param int $size
+     * @param int    $size
      *
      * @return string
      *
@@ -249,8 +255,9 @@ class TwoFactorAuth
 
         if ($timeproviders === null) {
             $timeproviders = [
-                              new Providers\Time\ConvertUnixTimeDotComTimeProvider(),
+//                              new Providers\Time\ConvertUnixTimeDotComTimeProvider(),
                               new Providers\Time\HttpTimeProvider(),
+//                              new Providers\Time\HttpTimeProvider('https://github.com'),
                              ];
         }
 

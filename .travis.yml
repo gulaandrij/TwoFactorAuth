@@ -7,4 +7,6 @@ php:
 
 script:
   - composer inst
-  - vendor/bin/phpunit tests/ --color
+  - vendor/bin/phpcs .
+  - vendor/bin/phpstan anal -l 7 lib/
+  - vendor/bin/phpunit

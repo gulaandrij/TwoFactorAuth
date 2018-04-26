@@ -1,8 +1,10 @@
 <?php
 
 namespace TFAuth\Providers\Time;
+
 /**
  * Class LocalMachineTimeProvider
+ *
  * @package TFAuth\Providers\Time
  */
 class LocalMachineTimeProvider implements ITimeProvider

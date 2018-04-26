@@ -42,10 +42,12 @@ class HashRNGProvider implements IRNGProvider
     {
         $result = '';
         $hash = mt_rand();
+
         for ($i = 0; $i < $bytecount; $i++) {
             $hash = hash($this->algorithm, $hash.mt_rand(), true);
-            $result .= $hash[random_int(0, sizeof($hash))];
+            $result .= $hash[random_int(0, \mb_strlen($hash))];
         }
+
         return $result;
     }
 
