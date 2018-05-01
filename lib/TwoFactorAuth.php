@@ -99,13 +99,13 @@ class TwoFactorAuth
         ITimeProvider $timeprovider = null
     ) {
         $this->issuer = $issuer;
-        if (!\is_int($digits) || $digits <= 0) {
-            throw new TwoFactorAuthException('Digits must be int > 0');
+        if ($digits <= 0) {
+            throw new TwoFactorAuthException('Digits must be > 0');
         }
         $this->digits = $digits;
 
-        if (!\is_int($period) || $period <= 0) {
-            throw new TwoFactorAuthException('Period must be int > 0');
+        if ($period <= 0) {
+            throw new TwoFactorAuthException('Period must be > 0');
         }
         $this->period = $period;
 
@@ -249,10 +249,6 @@ class TwoFactorAuth
      */
     public function ensureCorrectTime(array $timeproviders = null, int $leniency = 5): void
     {
-        if ($timeproviders !== null && !\is_array($timeproviders)) {
-            throw new TwoFactorAuthException('No timeproviders specified');
-        }
-
         if ($timeproviders === null) {
             $timeproviders = [
 //                              new Providers\Time\ConvertUnixTimeDotComTimeProvider(),

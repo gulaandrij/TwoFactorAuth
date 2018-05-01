@@ -28,15 +28,9 @@ class GoogleQRCodeProvider extends BaseHTTPQRCodeProvider
      * @param bool   $verifyssl
      * @param string $errorcorrectionlevel
      * @param int    $margin
-     *
-     * @throws QRException
      */
     public function __construct(bool $verifyssl = false, string $errorcorrectionlevel = 'L', int $margin = 1)
     {
-        if (!\is_bool($verifyssl)) {
-            throw new QRException('VerifySSL must be bool');
-        }
-
         $this->verifyssl = $verifyssl;
 
         $this->errorcorrectionlevel = $errorcorrectionlevel;

@@ -41,10 +41,10 @@ class HashRNGProvider implements IRNGProvider
     public function getRandomBytes(int $bytecount): string
     {
         $result = '';
-        $hash = mt_rand();
+        $hash = \random_int(0, mt_getrandmax());
 
         for ($i = 0; $i < $bytecount; $i++) {
-            $hash = hash($this->algorithm, $hash.mt_rand(), true);
+            $hash = hash($this->algorithm, $hash.\random_int(0, mt_getrandmax()), true);
             $result .= $hash[random_int(0, \mb_strlen($hash))];
         }
 
